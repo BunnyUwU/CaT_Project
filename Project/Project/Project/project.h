@@ -33,4 +33,8 @@ public:
 	// SHL, SHR
 	QInt operator>>(uint16_t);
 	QInt operator<<(uint16_t);
+
+	// Left rotate, right rotate
+	QInt Lrotate();
+	QInt Rrotate();
 };
