@@ -4,11 +4,9 @@
 #include <bitset>
 using namespace std;
 
-//#define QInt bitset<128>
-
 class QInt {
 private:
-	int arrayBit[4];
+	bitset<128> data;
 public:
 	// Construtors
 	QInt();
