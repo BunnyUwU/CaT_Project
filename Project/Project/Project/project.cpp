@@ -36,11 +36,11 @@ QInt QInt::operator-(const QInt& bit)
 	{
 		if ((!data[i] && !bit.data[i]) || (data[i] && bit.data[i]))
 		{
-			result.data[i] = 0;
+			result.data[i] = (data[i] - bit.data[i]);
 		}
 		else if (data[i] && !bit.data[i])
 		{
-			result.data[i] = 1;
+			result.data[i] = (data[i] - bit.data[i]);
 		}
 		else {
 			carry = 1;
