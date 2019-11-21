@@ -6,8 +6,9 @@ using namespace std;
 
 class QInt {
 private:
-	bitset<128> data;
+	
 public:
+	bitset<128> data;
 	// Construtors
 	QInt();
 	QInt(const QInt&);
@@ -35,4 +36,11 @@ public:
 	// Left rotate, right rotate
 	QInt Lrotate();
 	QInt Rrotate();
+
+	// Get bit and set bit
+	void getBit(bitset<128>, uint16_t);
+	void setBit(bitset<128>, uint16_t);
+
+	// read and cout
+	/*ostream& operator<<(ostream&, const QInt&);*/
 };
