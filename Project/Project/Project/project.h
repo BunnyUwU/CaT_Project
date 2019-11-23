@@ -11,6 +11,7 @@ public:
 	bitset<128> data;
 	// Construtors
 	QInt();
+	// QInt();
 	QInt(const QInt&);
 
 	// Function
@@ -34,8 +35,8 @@ public:
 	QInt operator<<(uint16_t);
 
 	// Left rotate, right rotate
-	QInt Lrotate();
-	QInt Rrotate();
+	QInt roL(uint16_t);
+	QInt roR(uint16_t);
 
 	// Get bit and set bit
 	void getBit(bitset<128>, uint16_t);
