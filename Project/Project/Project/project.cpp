@@ -75,6 +75,47 @@ QInt QInt::operator&(const QInt& bit)
 	return result;
 }
 
+QInt QInt::operator|(const QInt& bit)
+{
+	QInt result;
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		if (!data[i] && !bit.data[i])
+		{
+			result.data[i] = 0;
+		}
+		else {
+			result.data[i] = 1;
+		}
+	}
+	return result;
+}
+
+QInt QInt::operator~()
+{
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		this->data[i].flip();
+	}
+	return (*this);
+}
+
+QInt QInt::operator^(const QInt& bit)
+{
+	QInt result;
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		if ((data[i] && bit.data[i]) || (!data[i] && !data[i]))
+		{
+			result.data[i] = 1;
+		}
+		else {
+			result.data[i] = 0;
+		}
+	}
+	return result;
+}
+
 QInt QInt::operator<<(uint16_t number)
 {
 	for (int i = data.size() - number; i >= 0; i--)
