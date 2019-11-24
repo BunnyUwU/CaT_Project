@@ -5,6 +5,11 @@ QInt::QInt()
 	data = 0;
 }
 
+QInt::QInt(int64_t integer)
+{
+	this->data = integer;
+}
+
 QInt::QInt(const QInt& bit)
 {
 	this->data = bit.data;
@@ -14,7 +19,7 @@ QInt QInt::operator+(const QInt& bit)
 {
 	QInt result;
 	uint16_t carry = 0;
-	for (int i = 128 - 1; i >= 0; i--)
+	for (int i = data.size() - 1; i >= 0; i--)
 	{
 		if (data[i] && bit.data[i])
 		{
@@ -31,7 +36,7 @@ QInt QInt::operator+(const QInt& bit)
 QInt QInt::operator-(const QInt& bit)
 {
 	QInt result;
-	for (int i = 128 - 1; i >= 0; i--)
+	for (int i = data.size() - 1; i >= 0; i--)
 	{
 		result.data[i] = data[i] + ((~bit.data[i]) + 1);
 	}
@@ -56,12 +61,23 @@ QInt QInt::operator-(const QInt& bit)
 
 QInt QInt::operator&(const QInt& bit)
 {
-	return (*this);
+	QInt result;
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		if (data[i] && bit.data[i])
+		{
+			result.data[i] = 1;
+		}
+		else {
+			result.data[i] = 0;
+		}
+	}
+	return result;
 }
 
 QInt QInt::operator<<(uint16_t number)
 {
-	for (int i = 127 - number; i >= 0; i--)
+	for (int i = data.size() - number; i >= 0; i--)
 	{
 		this->data[i + number] = this->data[i];
 		this->data[i] = 0;
@@ -89,7 +105,10 @@ QInt QInt::operator>>(uint16_t number)
 		}
 	}*/
 
-	if (this->data[127])
+	QInt bit_0;
+	bit_0.data = 0;
+
+	/*if (this->data[127])
 	{
 		for (int i = 127; i >= 127 - number; i--)
 		{
@@ -111,7 +130,7 @@ QInt QInt::operator>>(uint16_t number)
 				this->data[j] = 0;
 			}
 		}
-	}
+	}*/
 	return (*this);
 }
 
@@ -121,6 +140,7 @@ QInt QInt::roL(uint16_t number)
 	{
 		
 	}
+	return (*this);
 }
 
 QInt QInt::roR(uint16_t number)
@@ -129,4 +149,20 @@ QInt QInt::roR(uint16_t number)
 	{
 
 	}
+	return (*this);
+}
+
+QInt& QInt::operator=(const QInt& bit)
+{
+	if (this == &bit)
+	{
+		return *this;
+	}
+	this->data = bit.data;
+	return (*this);
+}
+
+bitset<128> QInt::getData()
+{
+	return data;
 }

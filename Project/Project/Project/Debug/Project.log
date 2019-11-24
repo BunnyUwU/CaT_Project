@@ -1,5 +1,2 @@
 ﻿  main.cpp
-  project.cpp
-  Generating Code...
-D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(36,44): warning C4804: '~': unsafe use of type 'bool' in operation
   Project.vcxproj -> D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Debug\Project.exe

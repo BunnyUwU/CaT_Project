@@ -6,11 +6,11 @@ using namespace std;
 
 class QInt {
 private:
-	
-public:
 	bitset<128> data;
+public:
 	// Construtors
 	QInt();
+	QInt(int64_t);
 	// QInt();
 	QInt(const QInt&);
 
@@ -38,10 +38,12 @@ public:
 	QInt roL(uint16_t);
 	QInt roR(uint16_t);
 
-	// Get bit and set bit
-	void getBit(bitset<128>, uint16_t);
-	void setBit(bitset<128>, uint16_t);
+	// Assign operator
+	QInt& operator=(const QInt&);
 
 	// read and cout
 	/*ostream& operator<<(ostream&, const QInt&);*/
+
+	// Get data
+	bitset<128> getData();
 };
