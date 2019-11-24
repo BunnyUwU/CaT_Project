@@ -15,9 +15,6 @@ public:
 	QInt(const QInt&);
 
 	// Function
-	void add();
-	void multiply();
-
 	// operator +, -, *, /
 	QInt operator+(const QInt&);
 	QInt operator-(const QInt&);
@@ -35,8 +32,8 @@ public:
 	QInt operator<<(uint16_t);
 
 	// Left rotate, right rotate
-	QInt roL(uint16_t);
-	QInt roR(uint16_t);
+	QInt roL();
+	QInt roR();
 
 	// Assign operator
 	QInt& operator=(const QInt&);
