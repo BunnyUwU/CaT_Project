@@ -118,7 +118,7 @@ QInt QInt::operator^(const QInt& bit)
 // SHL, SHR
 QInt QInt::operator<<(uint16_t number)
 {
-	for (int i = data.size() - number; i >= 0; i--)
+	for (int i = (data.size() - 1) - number; i >= 0; i--)
 	{
 		this->data[i + number] = this->data[i];
 		this->data[i] = 0;
@@ -128,49 +128,24 @@ QInt QInt::operator<<(uint16_t number)
 
 QInt QInt::operator>>(uint16_t number)
 {
-	/*for (int i = 128 - 1; i >= number; i--)
+	size_t _posleft = data.size() - 1;
+	size_t temp;
+	temp = data[_posleft];
+	QInt result;
+	for (int i = data.size() - 1; i >= number; i--)
 	{
-		this->data[i - number] = this->data[i];
-		if (this->data[127] == 1)
-		{
-			for (int j = 0; j < number; j++)
-			{
-				this->data[127 - j] = 1;
-			}
-		}
-		else if (this->data[127] == 0) {
-			for (int j = 0; j < number; j++)
-			{
-				this->data[127 - j] = 0;
-			}
-		}
-	}*/
-
-	bitset <1> bit_0 = 0;
-
-	/*if (this->data[127])
-	{
-		for (int i = 127; i >= 127 - number; i--)
-		{
-			this->data[i] = 1;
-			for (int j = 127 - number; j >= number; j--)
-			{
-				this->data[j - 1] = this->data[j];
-				this->data[j] = 0;
-			}
-		}
+		result.data[i - number] = data[i];
 	}
-	else {
-		for (int i = 127; i >= 127 - number; i--)
-		{
-			this->data[i] = 0;
-			for (int j = 127 - number; j >= number; j--)
-			{
-				this->data[j - 1] = this->data[j];
-				this->data[j] = 0;
-			}
-		}
-	}*/
+	
+	for (int i = result.data.size() - 1; i > (result.data.size() - 1) - number; i--)
+	{
+		result.data[i] = temp;
+	}
+
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		data[i] = result.data[i];
+	}
 	return (*this);
 }
 // Left rotate, right rotate
@@ -179,24 +154,19 @@ QInt QInt::roL()
 	size_t _posleft = data.size() - 1, _posright = 0;
 	size_t temp;
 	temp = data[_posright];
-	for (int i = data.size() - 1; i >= 0; i--)
-	{
-		this->data[i] = this->data[i + 1];
-	}
+	(*this) >> 1;
 	this->data.set(_posleft, temp);
 	return (*this);
 }
 
 QInt QInt::roR()
 {
-	size_t _pos = data.size() - 1;
+	size_t _posleft = data.size() - 1, _posright = 0;
 	size_t temp;
-	temp = data[_pos];
-	for (int i = data.size() - 1; i >= 0; i--)
-	{
-		this->data[i] = this->data[i - 1];
-	}
-	this->data.set(0, temp);
+	size_t carry = 0;
+	temp = data[_posleft];
+	(*this) << 1;
+	this->data.set(_posright, temp);
 	return (*this);
 }
 // Assign operator
