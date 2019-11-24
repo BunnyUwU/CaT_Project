@@ -4,16 +4,15 @@ QInt::QInt()
 {
 	data = 0;
 }
-
 QInt::QInt(int64_t integer)
 {
 	this->data = integer;
 }
-
 QInt::QInt(const QInt& bit)
 {
 	this->data = bit.data;
 }
+
 // operator +, -, *, /
 QInt QInt::operator+(const QInt& bit)
 {
@@ -32,7 +31,6 @@ QInt QInt::operator+(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator-(const QInt& bit)
 {
 	QInt result;
@@ -42,7 +40,6 @@ QInt QInt::operator-(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator*(const QInt& bit)
 {
 	QInt sum;
@@ -58,6 +55,7 @@ QInt QInt::operator*(const QInt& bit)
 	}
 	return sum;
 }
+
 // logic operator: AND, OR, XOR, NOT
 QInt QInt::operator&(const QInt& bit)
 {
@@ -74,7 +72,6 @@ QInt QInt::operator&(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator|(const QInt& bit)
 {
 	QInt result;
@@ -90,7 +87,6 @@ QInt QInt::operator|(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator~()
 {
 	for (int i = data.size() - 1; i >= 0; i--)
@@ -99,7 +95,6 @@ QInt QInt::operator~()
 	}
 	return (*this);
 }
-
 QInt QInt::operator^(const QInt& bit)
 {
 	QInt result;
@@ -115,6 +110,7 @@ QInt QInt::operator^(const QInt& bit)
 	}
 	return result;
 }
+
 // SHL, SHR
 QInt QInt::operator<<(uint16_t number)
 {
@@ -125,7 +121,6 @@ QInt QInt::operator<<(uint16_t number)
 	}
 	return (*this);
 }
-
 QInt QInt::operator>>(uint16_t number)
 {
 	size_t _posleft = data.size() - 1;
@@ -148,6 +143,7 @@ QInt QInt::operator>>(uint16_t number)
 	}
 	return (*this);
 }
+
 // Left rotate, right rotate
 QInt QInt::roL()
 {
@@ -158,7 +154,6 @@ QInt QInt::roL()
 	this->data.set(_posleft, temp);
 	return (*this);
 }
-
 QInt QInt::roR()
 {
 	size_t _posleft = data.size() - 1, _posright = 0;
@@ -169,6 +164,7 @@ QInt QInt::roR()
 	this->data.set(_posright, temp);
 	return (*this);
 }
+
 // Assign operator
 QInt& QInt::operator=(const QInt& bit)
 {
