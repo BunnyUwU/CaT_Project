@@ -8,6 +8,18 @@ QInt::QInt(int64_t integer)
 {
 	this->data = integer;
 }
+QInt::QInt(string bit)
+{
+	int k = 0;
+	for (int i = bit.size() - 1; i >= 0; i--)
+	{
+		if (bit[i] == '0')
+			data[k] = 0;
+		else
+			data[k] = 1;
+		k++;
+	}
+}
 QInt::QInt(const QInt& bit)
 {
 	this->data = bit.data;
@@ -70,18 +82,32 @@ QInt QInt::operator-(const QInt& bit)
 }
 QInt QInt::operator*(const QInt& bit)
 {
-	QInt sum;
-	QInt result;
-	for (int i = 0; i < data.size(); i++)
+	int count = 0;
+	for (int i = bit.data.size() - 1; i >= 0; i--)
 	{
-		for (int j = data.size() - 1; j >= 0; j--)
+		if (bit.data[i] == 1)
 		{
-			result.data[j] = data[j] * bit.data[i];
+			count = i;
+			break;
 		}
-		sum = sum + result;
-		result << 1;
 	}
-	return sum;
+
+	QInt k = (*this);
+	k << 1;
+	for (int i = 0; i < count; i++)
+	{
+		if (bit.data[i] == 0)
+		{
+			(*this) << 1;
+			k << 1;
+		}
+		else {
+			(*this) = (*this) + k;
+			k << 1;
+		}
+	}
+
+	return (*this);
 }
 QInt QInt::operator/(const QInt& bit)
 {
@@ -124,7 +150,13 @@ QInt QInt::operator~()
 {
 	for (int i = data.size() - 1; i >= 0; i--)
 	{
-		this->data[i].flip();
+		if (this->data[i])
+		{
+			this->data[i] = 0;
+		}
+		else {
+			this->data[i] = 1;
+		}
 	}
 	return (*this);
 }
@@ -182,9 +214,9 @@ QInt QInt::roL()
 {
 	size_t _posleft = data.size() - 1, _posright = 0;
 	size_t temp;
-	temp = data[_posright];
-	(*this) >> 1;
-	this->data.set(_posleft, temp);
+	temp = data[_posleft];
+	(*this) << 1;
+	this->data.set(_posright, temp);
 	return (*this);
 }
 QInt QInt::roR()
@@ -192,9 +224,9 @@ QInt QInt::roR()
 	size_t _posleft = data.size() - 1, _posright = 0;
 	size_t temp;
 	size_t carry = 0;
-	temp = data[_posleft];
-	(*this) << 1;
-	this->data.set(_posright, temp);
+	temp = data[_posright];
+	(*this) >> 1;
+	this->data.set(_posleft, temp);
 	return (*this);
 }
 
