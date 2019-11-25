@@ -3,6 +3,7 @@
 #include <iostream>
 #include <bitset>
 #include <string>
+#include <fstream>
 using namespace std;
 
 class QInt {
@@ -13,8 +14,8 @@ public:
 	QInt();
 	QInt(int64_t);
 	QInt(string);
-	// QInt();
 	QInt(const QInt&);
+	QInt(int, string);
 
 	// Function
 	// operator +, -, *, /
@@ -40,9 +41,18 @@ public:
 	// Assign operator
 	QInt& operator=(const QInt&);
 
-	// read and cout
-	/*ostream& operator<<(ostream&, const QInt&);*/
-
 	// Get data
-	bitset<128> getData();
+	string getData();
+
+	// Conversion
+	string toHex();
+	string toDe();
+	string DetoBi(string);
+	string HextoBin(string);
+
+	// Optional Functions
+	void createArray(int array[][40]);
+	void madeElement(int array[][40]);
+	void reverseStr(string&);
+	string getTempArray(string, int[][40]);
 };
