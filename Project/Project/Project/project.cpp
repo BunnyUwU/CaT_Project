@@ -2,7 +2,7 @@
 // Construtors
 QInt::QInt()
 {
-	data = 0;
+	this->data = 0;
 }
 QInt::QInt(int64_t integer)
 {
@@ -17,19 +17,47 @@ QInt::QInt(const QInt& bit)
 QInt QInt::operator+(const QInt& bit)
 {
 	QInt result;
-	uint16_t carry = 0;
-	for (int i = data.size() - 1; i >= 0; i--)
+	bool carry = 0;
+
+	for (int i = 0; i < this->data.size(); i++)
 	{
-		if (data[i] && bit.data[i])
+		if (carry)
 		{
-			carry = 1;
-			result.data[i + 1] = ((data[i + 1] + bit.data[i + 1]) + carry);
+			result.data[i] = this->data[i] ^ bit.data[i] ^ carry;
+			if ((!this->data[i] && !bit.data[i]))
+			{
+				carry = 0;
+			}
 		}
 		else {
-			result.data[i] = ((data[i] + bit.data[i]) + carry);
+			if (this->data[i] && bit.data[i])
+			{
+				carry = 1;
+			}
+			result.data[i] = this->data[i] ^ bit.data[i];
 		}
 	}
+
 	return result;
+
+	/*bitset<1> temp = { 0 };
+	QInt tempQi;
+	for (int i = 0; i < bit.data.size(); i++) {
+		tempQi.data[i] = (this->data[i] ^ bit.data[i]);
+		if (this->data[i] == bit.data[i]) {
+			if ((temp[0] == 1 && bit.data[i] == 0) || (temp[0] == 0 && bit.data[i] == 1)) {
+				tempQi.data[i] = tempQi.data[i] + temp[0];
+				temp.flip();
+			}	
+		}
+		else {
+			if (this->data[i] == 1)
+				tempQi.data[i] = this->data[i] ^ temp[0];
+			else
+				tempQi.data[i] = bit.data[i] ^ temp[0];
+		}
+	}
+	return tempQi;*/
 }
 QInt QInt::operator-(const QInt& bit)
 {
@@ -51,9 +79,14 @@ QInt QInt::operator*(const QInt& bit)
 			result.data[j] = data[j] * bit.data[i];
 		}
 		sum = sum + result;
-		result.data << 1;
+		result << 1;
 	}
 	return sum;
+}
+QInt QInt::operator/(const QInt& bit)
+{
+	QInt result;
+	return result;
 }
 
 // logic operator: AND, OR, XOR, NOT
@@ -102,10 +135,10 @@ QInt QInt::operator^(const QInt& bit)
 	{
 		if ((data[i] && bit.data[i]) || (!data[i] && !data[i]))
 		{
-			result.data[i] = 1;
+			result.data[i] = 0;
 		}
 		else {
-			result.data[i] = 0;
+			result.data[i] = 1;
 		}
 	}
 	return result;
@@ -132,7 +165,7 @@ QInt QInt::operator>>(uint16_t number)
 		result.data[i - number] = data[i];
 	}
 	
-	for (int i = result.data.size() - 1; i > (result.data.size() - 1) - number; i--)
+	for (int i = result.data.size() - 1; i	> (result.data.size() - 1) - number; i--)
 	{
 		result.data[i] = temp;
 	}
