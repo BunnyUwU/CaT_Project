@@ -1,3 +1,5 @@
 ﻿  project.cpp
-D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(41,44): warning C4804: '~': unsafe use of type 'bool' in operation
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(39,44): warning C4804: '~': unsafe use of type 'bool' in operation
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(47,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(135,41): warning C4018: '>': signed/unsigned mismatch
   Project.vcxproj -> D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Debug\Project.exe

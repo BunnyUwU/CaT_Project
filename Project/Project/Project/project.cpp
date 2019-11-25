@@ -1,20 +1,19 @@
 #include "project.h"
-
+// Construtors
 QInt::QInt()
 {
 	data = 0;
 }
-
 QInt::QInt(int64_t integer)
 {
 	this->data = integer;
 }
-
 QInt::QInt(const QInt& bit)
 {
 	this->data = bit.data;
 }
 
+// operator +, -, *, /
 QInt QInt::operator+(const QInt& bit)
 {
 	QInt result;
@@ -32,7 +31,6 @@ QInt QInt::operator+(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator-(const QInt& bit)
 {
 	QInt result;
@@ -42,23 +40,23 @@ QInt QInt::operator-(const QInt& bit)
 	}
 	return result;
 }
+QInt QInt::operator*(const QInt& bit)
+{
+	QInt sum;
+	QInt result;
+	for (int i = 0; i < data.size(); i++)
+	{
+		for (int j = data.size() - 1; j >= 0; j--)
+		{
+			result.data[j] = data[j] * bit.data[i];
+		}
+		sum = sum + result;
+		result.data << 1;
+	}
+	return sum;
+}
 
-//QInt QInt::operator*(const QInt& bit)
-//{
-//	QInt sum;
-//	QInt result;
-//	for (int i = 0; i < 128; i++)
-//	{
-//		for (int j = 128 - 1; j >= 0; j++)
-//		{
-//			result.data[j] = data[j] * bit.data[i];
-//		}
-//		sum = sum + result;
-//		result.data << 1;
-//	}
-//	return sum;
-//}
-
+// logic operator: AND, OR, XOR, NOT
 QInt QInt::operator&(const QInt& bit)
 {
 	QInt result;
@@ -74,7 +72,6 @@ QInt QInt::operator&(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator|(const QInt& bit)
 {
 	QInt result;
@@ -90,7 +87,6 @@ QInt QInt::operator|(const QInt& bit)
 	}
 	return result;
 }
-
 QInt QInt::operator~()
 {
 	for (int i = data.size() - 1; i >= 0; i--)
@@ -99,7 +95,6 @@ QInt QInt::operator~()
 	}
 	return (*this);
 }
-
 QInt QInt::operator^(const QInt& bit)
 {
 	QInt result;
@@ -116,83 +111,61 @@ QInt QInt::operator^(const QInt& bit)
 	return result;
 }
 
+// SHL, SHR
 QInt QInt::operator<<(uint16_t number)
 {
-	for (int i = data.size() - number; i >= 0; i--)
+	for (int i = (data.size() - 1) - number; i >= 0; i--)
 	{
 		this->data[i + number] = this->data[i];
 		this->data[i] = 0;
 	}
 	return (*this);
 }
-
 QInt QInt::operator>>(uint16_t number)
 {
-	/*for (int i = 128 - 1; i >= number; i--)
+	size_t _posleft = data.size() - 1;
+	size_t temp;
+	temp = data[_posleft];
+	QInt result;
+	for (int i = data.size() - 1; i >= number; i--)
 	{
-		this->data[i - number] = this->data[i];
-		if (this->data[127] == 1)
-		{
-			for (int j = 0; j < number; j++)
-			{
-				this->data[127 - j] = 1;
-			}
-		}
-		else if (this->data[127] == 0) {
-			for (int j = 0; j < number; j++)
-			{
-				this->data[127 - j] = 0;
-			}
-		}
-	}*/
-
-	QInt bit_0;
-	bit_0.data = 0;
-
-	/*if (this->data[127])
-	{
-		for (int i = 127; i >= 127 - number; i--)
-		{
-			this->data[i] = 1;
-			for (int j = 127 - number; j >= number; j--)
-			{
-				this->data[j - 1] = this->data[j];
-				this->data[j] = 0;
-			}
-		}
+		result.data[i - number] = data[i];
 	}
-	else {
-		for (int i = 127; i >= 127 - number; i--)
-		{
-			this->data[i] = 0;
-			for (int j = 127 - number; j >= number; j--)
-			{
-				this->data[j - 1] = this->data[j];
-				this->data[j] = 0;
-			}
-		}
-	}*/
+	
+	for (int i = result.data.size() - 1; i > (result.data.size() - 1) - number; i--)
+	{
+		result.data[i] = temp;
+	}
+
+	for (int i = data.size() - 1; i >= 0; i--)
+	{
+		data[i] = result.data[i];
+	}
 	return (*this);
 }
 
-QInt QInt::roL(uint16_t number)
+// Left rotate, right rotate
+QInt QInt::roL()
 {
-	if (data[data.count() - 1] == 1)
-	{
-		
-	}
+	size_t _posleft = data.size() - 1, _posright = 0;
+	size_t temp;
+	temp = data[_posright];
+	(*this) >> 1;
+	this->data.set(_posleft, temp);
 	return (*this);
 }
-
-QInt QInt::roR(uint16_t number)
+QInt QInt::roR()
 {
-	if (data[data.count() - 1] == 1)
-	{
-
-	}
+	size_t _posleft = data.size() - 1, _posright = 0;
+	size_t temp;
+	size_t carry = 0;
+	temp = data[_posleft];
+	(*this) << 1;
+	this->data.set(_posright, temp);
 	return (*this);
 }
 
+// Assign operator
 QInt& QInt::operator=(const QInt& bit)
 {
 	if (this == &bit)
@@ -202,7 +175,7 @@ QInt& QInt::operator=(const QInt& bit)
 	this->data = bit.data;
 	return (*this);
 }
-
+// Get data
 bitset<128> QInt::getData()
 {
 	return data;
