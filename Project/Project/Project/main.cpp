@@ -2,22 +2,11 @@
 
 int main()
 {
-	QInt bit1("1111");
-	QInt bit2("1010");
-	QInt result1 = bit1 * bit2;
+	QInt bit(10, "7564");
+	QInt bit2(10, "234");
 
-	/*bit1.roR();
-	for (int i = bit1.getData().size() - 1; i >= 0; i--)
-	{
-		cout << bit1.getData()[i];
-	}
-	cout << endl;*/
-
-	for (int i = result1.getData().size() - 1; i >= 0; i--)
-	{
-		cout << result1.getData()[i];
-	}
-	cout << endl;
+	QInt result = bit * bit2;
+	cout << result.toDe() << endl;
 
 	return 0;
 }

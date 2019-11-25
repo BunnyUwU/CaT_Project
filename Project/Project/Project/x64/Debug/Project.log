@@ -1,0 +1,20 @@
+﻿  project.cpp
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(14,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(31,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(42,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(53,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(95,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(97,44): warning C4804: '~': unsafe use of type 'bool' in operation
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(104,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(142,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(157,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(171,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(186,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(202,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(215,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(220,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(227,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(375,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(403,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\project.cpp(545,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Project.vcxproj -> D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\x64\Debug\Project.exe
