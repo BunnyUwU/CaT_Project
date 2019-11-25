@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <bitset>
+#include <string>
 using namespace std;
 
 class QInt {
@@ -11,6 +12,7 @@ public:
 	// Construtors
 	QInt();
 	QInt(int64_t);
+	QInt(string);
 	// QInt();
 	QInt(const QInt&);
 
