@@ -55,4 +55,6 @@ public:
 	void madeElement(int array[][40]);
 	void reverseStr(string&);
 	string getTempArray(string, int[][40]);
+	bool operator<(const QInt&);
+	bool operator>(const QInt&);
 };

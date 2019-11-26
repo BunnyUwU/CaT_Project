@@ -1,2 +1,5 @@
 ﻿  main.cpp
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\main.cpp(26,22): warning C4018: '<': signed/unsigned mismatch
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\main.cpp(78,15): warning C4244: 'argument': conversion from '__int64' to 'uint16_t', possible loss of data
+D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Project\main.cpp(83,15): warning C4244: 'argument': conversion from '__int64' to 'uint16_t', possible loss of data
   Project.vcxproj -> D:\Users\PC\Documents\GitHub\CaT_Project\Project\Project\Debug\Project.exe

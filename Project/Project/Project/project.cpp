@@ -92,35 +92,28 @@ QInt QInt::operator+(const QInt& bit)
 QInt QInt::operator-(const QInt& bit)
 {
 	QInt result;
-	for (int i = data.size() - 1; i >= 0; i--)
-	{
-		result.data[i] = data[i] + ((~bit.data[i]) + 1);
-	}
+	QInt temp = bit;
+	result = (*this) + ((~temp) + 1);
 	return result;
 }
 QInt QInt::operator*(const QInt& bit)
 {
-	int count = 0;
-	for (int i = bit.data.size() - 1; i >= 0; i--)
+	int length = (*this).data.size();
+	if (bit.data.size() > length)
 	{
-		if (bit.data[i] == 1)
-		{
-			count = i;
-			break;
-		}
+		length = bit.data.size();
 	}
 
-	QInt k;
 	QInt result;
-	for (int i = 0; i <= count; i++)
+	for (int i = 0; i < length; i++)
 	{
 		if (bit.data[i] == 0)
 		{
-			(*this) << 1;
+			(*this) = (*this) << 1;
 		}
 		else {
 			result = result + (*this);
-			(*this) << 1;
+			(*this) = (*this) << 1;
 		}
 	}
 
@@ -128,9 +121,55 @@ QInt QInt::operator*(const QInt& bit)
 }
 QInt QInt::operator/(const QInt& bit)
 {
-	QInt result;
+	QInt quotient = *this;
+	QInt divisor = bit;
+	QInt Remainder(2, "0");
+	int count = this->data.size();
 
+	QInt bit_1(2, "1");
+	bool flag = 0;
 
+	if (quotient.data[127] == 1)
+	{
+		quotient = quotient - bit_1;
+		quotient = ~quotient;
+		flag = 1;
+	}
+
+	if (divisor.data[127] == 1)
+	{
+		divisor = divisor - bit_1;
+		divisor = ~divisor;
+		flag = 1;
+	}
+
+	while (count > 0) {
+		bool carry = quotient.data[127];
+
+		Remainder = Remainder << 1;
+		Remainder.data[0] = carry;
+		quotient = quotient << 1;
+
+		Remainder = Remainder - divisor;
+
+		if (Remainder.data[127] == 1)
+		{
+			quotient.data[0] = 0;
+			Remainder = Remainder + divisor;
+		}
+		else {
+			quotient.data[0] = 1;
+		}
+		count = count - 1;
+	}
+
+	if (flag)
+	{
+		quotient = ~quotient;
+		quotient = quotient + bit_1;
+	}
+
+	QInt result = quotient;
 
 	return result;
 }
@@ -185,12 +224,12 @@ QInt QInt::operator^(const QInt& bit)
 	QInt result;
 	for (int i = data.size() - 1; i >= 0; i--)
 	{
-		if ((data[i] && bit.data[i]) || (!data[i] && !data[i]))
+		if ((data[i] ^ bit.data[i]))
 		{
-			result.data[i] = 0;
+			result.data[i] = 1;
 		}
 		else {
-			result.data[i] = 1;
+			result.data[i] = 0;
 		}
 	}
 	return result;
@@ -199,15 +238,20 @@ QInt QInt::operator^(const QInt& bit)
 // SHL, SHR
 QInt QInt::operator<<(uint16_t number)
 {
+	QInt result;
 	for (int i = (data.size() - 1) - number; i >= 0; i--)
 	{
-		this->data[i + number] = this->data[i];
-		this->data[i] = 0;
+		result.data[i + number] = this->data[i];
 	}
-	return (*this);
+	return result;	
 }
 QInt QInt::operator>>(uint16_t number)
 {
+	if (number >= 128)
+	{
+		return (*this);
+	}
+
 	size_t _posleft = data.size() - 1;
 	size_t temp;
 	temp = data[_posleft];
@@ -238,7 +282,7 @@ QInt QInt::roL()
 	size_t _posleft = data.size() - 1, _posright = 0;
 	size_t temp;
 	temp = data[_posleft];
-	(*this) << 1;
+	(*this) = (*this) << 1;
 	this->data.set(_posright, temp);
 	return (*this);
 }
@@ -248,7 +292,7 @@ QInt QInt::roR()
 	size_t temp;
 	size_t carry = 0;
 	temp = data[_posright];
-	(*this) >> 1;
+	(*this) = (*this) >> 1;
 	this->data.set(_posleft, temp);
 	return (*this);
 }
@@ -398,7 +442,14 @@ string QInt::DetoBi(string decimal)
 	string d2 = decimal;
 	string binary = "";
 	string temp = "", result = "", temp2, temp3;
+	if (decimal == "-1") {
+		for (int i = 0; i < 128; i++)
+			result = result + '1';
+		return result;
+	}
+
 	int i = 0, dividend, divisor, r, k;
+
 	do {
 		int n = d2.size();
 		temp3 = d2[n - 1];
@@ -568,4 +619,12 @@ string QInt::getTempArray(string bit, int array[][40])
 	}
 
 	return temp2;
+}
+bool QInt::operator<(const QInt& bit)
+{
+	return (*this) < bit;
+}
+bool QInt::operator>(const QInt& bit)
+{
+	return (*this) > bit;
 }
